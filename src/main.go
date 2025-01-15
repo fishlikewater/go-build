@@ -40,12 +40,14 @@ func main() {
 		if output != "" {
 			v = filepath.Join(output, v)
 		}
-		goBuild(filepath.Join(abs, k), v)
+
+		goBuild(filepath.Join(abs, k), filepath.Join(abs, v))
 	}
 }
 
 func goBuild(path string, name string) {
-	commandLine := fmt.Sprintf("go build -o %s %s", name, path)
+	commandLine := fmt.Sprintf("go build -C %s -o %s", path, name)
+	fmt.Println("当前执命令: ", commandLine)
 	cmd := exec.Command("cmd", "/c", commandLine)
 	stdoutPipe, err := cmd.StdoutPipe()
 	if err != nil {

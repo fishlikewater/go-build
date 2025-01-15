@@ -2,4 +2,4 @@ go:
   build:
     output: bin
     package:
-      .: gb
+      src: gb
