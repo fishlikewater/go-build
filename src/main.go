@@ -48,7 +48,13 @@ func main() {
 func goBuild(path string, name string) {
 	commandLine := fmt.Sprintf("go build -C %s -o %s", path, name)
 	fmt.Println("当前执命令: ", commandLine)
-	cmd := exec.Command("cmd", "/c", commandLine)
+	sysType := runtime.GOOS
+	var cmd *exec.Cmd
+	if sysType == "windows" {
+		cmd = exec.Command("cmd", "/c", commandLine)
+	} else {
+		cmd = exec.Command("sh", "-c", commandLine)
+	}
 	stdoutPipe, err := cmd.StdoutPipe()
 	if err != nil {
 		log.Fatalf("Failed to get stdout pipe: %s", err)
