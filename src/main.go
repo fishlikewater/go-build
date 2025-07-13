@@ -53,7 +53,7 @@ func goBuild(path string, name string) {
 	if sysType == "windows" {
 		cmd = exec.Command("cmd", "/c", commandLine)
 	} else {
-		cmd = exec.Command("sh", "-c", commandLine)
+		cmd = exec.Command("/bin/sh", "-c", commandLine)
 	}
 	stdoutPipe, err := cmd.StdoutPipe()
 	if err != nil {
